@@ -18,7 +18,12 @@ const updateInfo = zod.object({
     lastName: zod.string().max(50).trim()
 })
 
+const transfer = zod.object({
+    amount: zod.number(),
+    to    : zod.string().email()
+})
+
 module.exports = {
     signUp, signIn,
-    updateInfo
+    updateInfo, transfer
 }
