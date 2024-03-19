@@ -62,9 +62,10 @@ router.post("/signup", async(req, res)=>{
 
 })
 
-router.get("/signin", async (req, res)=>{
+router.post("/signin", async (req, res)=>{
+    console.log("after signin")
     const body = req.body
-
+    console.log(body)
     const parsedData = signIn.safeParse(body)
 
     if(!parsedData.success){
@@ -134,6 +135,7 @@ router.put("/", authMiddleware, async (req, res)=>{
 })
 
 router.get("/bulk", authMiddleware, async(req, res)=>{
+    console.log("bulksearch")
     const name = req.query.filter || ""
 
     const users = await User.find({
@@ -151,7 +153,7 @@ router.get("/bulk", authMiddleware, async(req, res)=>{
         ]
     })
 
-    res.status(200).json({
+    return res.status(200).json({
         msg: "got successfully",
         user: users.map( user => ({
             userName: user.userName,
